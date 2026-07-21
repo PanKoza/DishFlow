@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <!-- Strona główna -->
+  <url>
+    <loc>https://dishflow.pl/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://dishflow.pl/"/>
+    <image:image>
+      <image:loc>https://dishflow.pl/og-image.jpg</image:loc>
+      <image:title>DishFlow – Tani System POS dla Restauracji</image:title>
+      <image:caption>Nowoczesny system POS i KDS dla restauracji od 89 zł/miesiąc</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Sekcja: Strony internetowe i rezerwacje -->
+  <url>
+    <loc>https://dishflow.pl/#strony-internetowe</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sekcja: Cennik -->
+  <url>
+    <loc>https://dishflow.pl/#cennik</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sekcja: Funkcje -->
+  <url>
+    <loc>https://dishflow.pl/#funkcje</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sekcja: Aplikacja -->
+  <url>
+    <loc>https://dishflow.pl/#aplikacja</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Sekcja: Kontakt -->
+  <url>
+    <loc>https://dishflow.pl/#kontakt</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
+

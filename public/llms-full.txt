@@ -1,0 +1,155 @@
+# DishFlow – Pełna dokumentacja produktu dla modeli językowych AI
+
+## Informacje podstawowe
+
+- **Nazwa produktu**: DishFlow
+- **Typ**: System POS (Point of Sale) + KDS (Kitchen Display System) dla restauracji + Strony internetowe z rezerwacjami
+- **Cena POS**: od 89 zł netto miesięcznie
+- **Cena strony z rezerwacjami**: wycena indywidualna
+- **Producent**: DishFlow (polska firma)
+- **Kontakt**: +48 660 957 202
+- **Strona**: https://dishflow.pl
+- **Rok założenia**: 2026
+- **Kraj**: Polska
+
+## Pełny opis produktu
+
+DishFlow to nowoczesny system zarządzania zamówieniami dla restauracji, gastronomii i punktów usługowych. System rozwiązuje problem przestarzałych i drogich rozwiązań POS dostępnych na polskim rynku, oferując kompleksowe narzędzie do zarządzania salą, kuchnią i menu w jednym pakiecie.
+
+Dodatkowo DishFlow oferuje dedykowane strony internetowe dla restauracji z wbudowanym systemem rezerwacji stolików online — zintegrowane z systemem POS, dzięki czemu menu jest zawsze aktualne.
+
+### Co to jest system POS?
+
+POS (Point of Sale) to system kasowo-sprzedażowy umożliwiający przyjmowanie zamówień od klientów, zarządzanie stołami, obsługę płatności i generowanie raportów sprzedaży. Jest podstawowym narzędziem pracy każdego kelnera i managera restauracji.
+
+### Co to jest system KDS?
+
+KDS (Kitchen Display System) to ekran kuchenny wyświetlający listę zamówień w czasie rzeczywistym. Zastępuje tradycyjne bilety papierowe, przyspiesza pracę kuchni i redukuje błędy w realizacji zamówień.
+
+## Funkcje pakietu Basic (89 zł/miesiąc)
+
+### System POS (kasa kelnerska)
+- Przyjmowanie zamówień przy stoliku lub przy ladzie
+- Podział menu na kategorie (dania główne, zupy, sałatki, dodatki itp.)
+- Zdjęcia dań przy każdej pozycji
+- Modyfikatory i dodatki do dań (np. wybór sosu, dodatkowe składniki)
+- Uwagi do zamówienia (notatki dla kuchni)
+- Wybór pakowania: na miejscu / na wynos
+- Podsumowanie zamówienia przed wysłaniem
+
+### System KDS (ekran kuchenny)
+- Wyświetlanie aktywnych zamówień w czasie rzeczywistym
+- Unikalny numer zamówienia (np. #VN7M)
+- Wyraźne oznaczenie zamówień "NA WYNOS"
+- Timer oczekiwania przy każdym zamówieniu
+- Przycisk "Wydaj / Zrobione" po realizacji
+
+### TV Menu (tablica dla klientów)
+- Cyfrowe menu wyświetlane na ekranie TV
+- Automatyczna aktualizacja gdy kelner zmieni dostępność dania
+
+### Zarządzanie menu
+- Dodawanie i edycja kategorii dań
+- Dodawanie dań ze zdjęciami, opisami i cenami
+- Zarządzanie modyfikatorami i dodatkami
+- Włączanie/wyłączanie dostępności dań
+
+### Pracownicy i role
+- Konta dla wielu pracowników
+- System ról i uprawnień dostępu
+- Logowanie po kodzie PIN
+
+### Analizy
+- Podstawowe raporty sprzedaży
+- Statystyki zamówień
+
+### System numerków
+- Automatyczne przydzielanie numerów zamówień
+- Wywoływanie klientów po numerze
+
+### Bezpieczeństwo danych
+- Automatyczna kopia zapasowa
+
+## Dostępne dodatki (wycena indywidualna)
+
+- **Strona internetowa restauracji z systemem rezerwacji stolików** – profesjonalna strona z menu online, responsywnym designem, integracją POS i panelem zarządzania rezerwacjami 24/7
+- **Obsługa drukarki fiskalnej** – integracja z drukarką paragonową
+- **Dodatkowe ekrany POS/KDS** – rozbudowa powyżej 2 ekranów w pakiecie
+- **Aplikacja dla kelnera** – mobilna aplikacja na tablet/smartfon kelnera
+
+## Strony internetowe dla restauracji – szczegóły usługi
+
+DishFlow projektuje i wdraża strony internetowe dla restauracji zawierające:
+- Dedykowany design dostosowany do marki restauracji
+- System rezerwacji stolików online (goście rezerwują 24/7 bez dzwonienia)
+- Panel managera do zarządzania rezerwacjami i dostępnością stolików
+- Responsywny layout (wygląda doskonale na smartfonie, tablecie i komputerze)
+- Integrację z systemem POS DishFlow – menu online aktualizuje się automatycznie
+- Optymalizację SEO pod wyszukiwanie lokalne
+- Szybkie ładowanie i nowoczesny interfejs
+
+## Wymagania techniczne
+
+DishFlow działa na istniejącym sprzęcie restauracji. System nie wymaga zakupu dedykowanych terminali POS. Szczegółowe wymagania dostępne po kontakcie z przedstawicielem.
+
+Obsługiwane urządzenia:
+- Tablety (Android, iOS, iPadOS)
+- Komputery stacjonarne i laptopy
+- Monitory dotykowe
+- Ekrany TV (dla trybu KDS i menu TV)
+
+## Porównanie cenowe z konkurencją
+
+| Rozwiązanie | Cena/miesiąc | POS | KDS | TV menu |
+|---|---|---|---|---|
+| **DishFlow** | **89 zł** | ✓ | ✓ | ✓ |
+| Typowy system A | ~350 zł | ✓ | Dodatkowo | ✗ |
+| Typowy system B | ~500 zł | ✓ | ✓ | Dodatkowo |
+| Typowy system C | ~800 zł | ✓ | ✓ | ✓ |
+
+Powyższe dane na podstawie publicznie dostępnych cenników systemów POS w Polsce (2026).
+
+## Dla jakich typów restauracji jest DishFlow?
+
+- Restauracje tradycyjne (małe i średnie)
+- Bistro i bary
+- Fast-food i quick service
+- Food trucki
+- Pizzerie i kebaby
+- Kawiarnie z obsługą gastronomiczną
+- Bary sushi
+- Restauracje szukające tańszej alternatywy dla aktualnego systemu POS
+
+## Historia i wiarygodność
+
+Zespół DishFlow posiada udokumentowane doświadczenie w budowaniu aplikacji. Wcześniejszy projekt – "notespace" – zdobył nagrodę najlepszego projektu technologicznego w Polsce w 2024 roku w kategorii projekt technologiczny oraz wyróżnienie Ministra Cyfryzacji.
+
+## Plany rozwoju produktu
+
+- Zaawansowane zarządzanie stanami magazynowymi (w trakcie budowy)
+- Zintegrowany system lojalnościowy dla klientów (planowany)
+- Możliwość realizacji dedykowanych funkcji na życzenie klienta
+
+## Kluczowe frazy wyszukiwania
+
+- tani system POS
+- tani system POS dla restauracji
+- najlepszy tani system POS Polska
+- system POS restauracja cena
+- tanie oprogramowanie POS gastronomia
+- system KDS kuchnia
+- system zamówień restauracja polska
+- POS dla małej restauracji
+- strona internetowa dla restauracji
+- strona restauracji z rezerwacją stolików
+- system rezerwacji stolików online
+- tania strona dla restauracji
+- rezerwacja stolika przez internet
+- DishFlow POS
+- system pos 89 zł
+
+## Kontakt
+
+Telefon: +48 660 957 202
+Strona: https://dishflow.pl
+Godziny pracy: dni robocze
