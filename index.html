@@ -7,7 +7,7 @@
 
     <!-- Primary SEO -->
     <title>DishFlow – Tani System POS, Strony dla Restauracji i Rezerwacje Online | 89 zł/mies.</title>
-    <meta name="description" content="DishFlow to tani system POS i KDS dla restauracji (od 89 zł/mies.) oraz twórca dedykowanych stron internetowych z systemem rezerwacji stolików online. Polska firma, szybkie wdrożenie." />
+    <meta name="description" content="DishFlow – tani system POS i KDS dla restauracji od 89 zł/mies. Dedykowane strony internetowe z rezerwacją stolików online. Polska firma, szybkie wdrożenie." />
     <meta name="keywords" content="tani system POS, system POS restauracja, KDS kuchnia, tanie oprogramowanie dla restauracji, system zamówień restauracja, POS Polska, tani POS gastronomia, DishFlow, system kelnerski, menu TV restauracja, strona internetowa dla restauracji, system rezerwacji stolików, rezerwacja stolika online, strona restauracji z rezerwacją, tani system rezerwacji restauracja, strona www dla restauracji Polska, system pos dla gastronomii, tani pos polska, system pos cena, oprogramowanie dla restauracji cena" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="author" content="DishFlow" />
@@ -16,6 +16,8 @@
     <meta name="geo.placename" content="Polska" />
     <meta name="language" content="Polish" />
     <link rel="canonical" href="https://dishflow.pl/" />
+    <link rel="alternate" hreflang="pl" href="https://dishflow.pl/" />
+    <link rel="alternate" hreflang="x-default" href="https://dishflow.pl/" />
     <link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt" />
 
     <!-- Open Graph -->
@@ -24,14 +26,20 @@
     <meta property="og:title" content="DishFlow – Tani System POS, Strony dla Restauracji i Rezerwacje Online" />
     <meta property="og:description" content="Tani system POS i KDS dla restauracji od 89 zł/mies. + dedykowane strony internetowe z systemem rezerwacji stolików online. Polska firma." />
     <meta property="og:image" content="https://dishflow.pl/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DishFlow – Tani System POS dla Restauracji od 89 zł/miesiąc" />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="DishFlow" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@DishFlow" />
     <meta name="twitter:title" content="DishFlow – Tani System POS dla Restauracji" />
-    <meta name="twitter:description" content="Nowoczesny system POS i KDS dla restauracji od 89 zł/miesiąc." />
+    <meta name="twitter:description" content="Nowoczesny system POS i KDS dla restauracji od 89 zł/miesiąc. Dedykowane strony www z rezerwacją stolików online." />
     <meta name="twitter:image" content="https://dishflow.pl/og-image.jpg" />
+    <meta name="twitter:image:alt" content="DishFlow – Tani System POS dla Restauracji" />
+    <meta name="twitter:url" content="https://dishflow.pl/" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -62,7 +70,8 @@
         "url": "https://dishflow.pl",
         "areaServed": "PL",
         "foundingDate": "2026",
-        "award": "Wyróżnienie Ministra Cyfryzacji 2024"
+        "award": "Wyróżnienie Ministra Cyfryzacji 2024",
+        "logo": "https://dishflow.pl/favicon.svg"
       },
       "featureList": [
         "System POS i KDS",
@@ -168,16 +177,37 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "name": "DishFlow",
       "url": "https://dishflow.pl",
-      "logo": "https://dishflow.pl/favicon.svg",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://dishflow.pl/favicon.svg"
+      },
       "telephone": "+48660957202",
+      "priceRange": "zł",
       "areaServed": {
         "@type": "Country",
         "name": "Poland"
       },
-      "description": "Polska firma tworząca nowoczesne oprogramowanie POS i KDS dla restauracji.",
+      "description": "Polska firma tworząca nowoczesne oprogramowanie POS i KDS dla restauracji oraz dedykowane strony internetowe z systemem rezerwacji stolików.",
+      "foundingDate": "2026",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+48660957202",
+          "contactType": "customer service",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+48883821301",
+          "contactType": "sales",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        }
+      ],
       "sameAs": []
     }
     </script>
@@ -188,6 +218,22 @@
       "name": "DishFlow – Tani System POS dla Restauracji",
       "description": "Nowoczesny tani system POS i KDS dla restauracji od 89 zł miesięcznie.",
       "url": "https://dishflow.pl",
+      "inLanguage": "pl",
+      "isPartOf": { "@type": "WebSite", "name": "DishFlow", "url": "https://dishflow.pl" },
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-22",
+      "publisher": {
+        "@type": "Organization",
+        "name": "DishFlow",
+        "url": "https://dishflow.pl",
+        "logo": "https://dishflow.pl/favicon.svg"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://dishflow.pl/og-image.jpg",
+        "width": 1200,
+        "height": 630
+      },
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["#o-nas", "#cennik", "#faq"]
@@ -200,10 +246,27 @@
           { "@type": "ListItem", "position": 3, "name": "FAQ", "item": "https://dishflow.pl/#faq" }
         ]
       }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DishFlow",
+      "url": "https://dishflow.pl",
+      "inLanguage": "pl",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://dishflow.pl/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
     }
     </script>
 
-    <!-- Preconnect Google Fonts -->
+    <!-- Preconnect & DNS-prefetch Google Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />

@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+Host: https://dishflow.pl
 
 Sitemap: https://dishflow.pl/sitemap.xml

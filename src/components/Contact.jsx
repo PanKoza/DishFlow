@@ -5,6 +5,7 @@ export default function Contact() {
   return (
     <section
       id="kontakt"
+      aria-label="Kontakt z DishFlow – system POS dla restauracji"
       className="py-24 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #6300FF 0%, #0900FF 100%)' }}
     >

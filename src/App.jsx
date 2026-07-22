@@ -14,15 +14,17 @@ export default function App() {
   return (
     <div className="bg-white text-gray-900 antialiased" style={{ fontFamily: "'Sora', system-ui, sans-serif" }}>
       <Navbar />
-      <Hero />
-      <Features />
-      <Comparison />
-      <Pricing />
-      <WebsiteService />
-      <AppScreenshots />
-      <Future />
-      <FAQ />
-      <Contact />
+      <main>
+        <Hero />
+        <Features />
+        <Comparison />
+        <Pricing />
+        <WebsiteService />
+        <AppScreenshots />
+        <Future />
+        <FAQ />
+        <Contact />
+      </main>
       <Footer />
     </div>
   )

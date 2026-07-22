@@ -22,6 +22,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="o-nas"
+      aria-label="DishFlow – Tani System POS dla Restauracji"
       className="relative flex items-center justify-center overflow-hidden pt-16 pb-28"
       style={{ minHeight: '100svh', background: '#07001A' }}
     >

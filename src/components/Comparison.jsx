@@ -53,6 +53,7 @@ export default function Comparison() {
         <FadeIn from="left" delay={0.1}>
           <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-lg">
             <table className="w-full text-sm">
+              <caption className="sr-only">Porównanie DishFlow z konkurencyjnymi systemami POS dla restauracji w Polsce</caption>
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="text-left px-6 py-4 text-gray-500 font-semibold w-1/2">Cecha</th>

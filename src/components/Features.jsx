@@ -27,6 +27,7 @@ export default function Features() {
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f) => (
             <StaggerItem key={f.title}>
+              <article>
               <motion.div
                 whileHover={{
                   scale: 1.03,
@@ -48,6 +49,7 @@ export default function Features() {
                   {f.desc}
                 </p>
               </motion.div>
+              </article>
             </StaggerItem>
           ))}
         </StaggerContainer>

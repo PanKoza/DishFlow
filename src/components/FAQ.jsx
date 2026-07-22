@@ -21,12 +21,16 @@ function FAQItem({ item, index }) {
       <motion.div
         className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
         whileHover={{ boxShadow: '0 8px 24px rgba(99,0,255,0.08)' }}
+        itemScope
+        itemProp="mainEntity"
+        itemType="https://schema.org/Question"
       >
         <button
           onClick={() => setOpen(!open)}
           className="w-full flex items-center justify-between px-6 py-5 font-semibold text-gray-900 text-left gap-4"
+          aria-expanded={open}
         >
-          <span>{item.q}</span>
+          <span itemProp="name">{item.q}</span>
           <motion.div
             animate={{ rotate: open ? 45 : 0 }}
             transition={{ duration: 0.25 }}
@@ -48,7 +52,9 @@ function FAQItem({ item, index }) {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <p className="px-6 pb-5 text-gray-500 text-sm leading-relaxed">{item.a}</p>
+              <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                <p className="px-6 pb-5 text-gray-500 text-sm leading-relaxed" itemProp="text">{item.a}</p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -59,7 +65,7 @@ function FAQItem({ item, index }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" aria-label="Najczęściej zadawane pytania o tani system POS" className="py-24 bg-gray-50 overflow-hidden">
+    <section id="faq" aria-label="Najczęściej zadawane pytania o tani system POS" className="py-24 bg-gray-50 overflow-hidden" itemScope itemType="https://schema.org/FAQPage">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="text-center mb-14">
           <span className="inline-block text-[#6300FF] font-semibold text-sm uppercase tracking-widest mb-3">FAQ</span>
