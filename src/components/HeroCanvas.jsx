@@ -60,12 +60,26 @@ export default function HeroCanvas() {
     let animId
     let W = 0, H = 0, CX = 0, CY = 0
     let stars = []
+    let vignetteGrd = null
+    let coreGrd = null
+
+    function buildGradients() {
+      vignetteGrd = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.72)
+      vignetteGrd.addColorStop(0, 'rgba(0,0,0,0)')
+      vignetteGrd.addColorStop(1, 'rgba(7,0,26,0.72)')
+
+      coreGrd = ctx.createRadialGradient(CX, CY, 0, CX, CY, 130)
+      coreGrd.addColorStop(0,   'rgba(99,0,255,0.22)')
+      coreGrd.addColorStop(0.4, 'rgba(9,0,255,0.08)')
+      coreGrd.addColorStop(1,   'rgba(0,0,0,0)')
+    }
 
     function resize() {
       W  = canvas.width  = canvas.offsetWidth
       H  = canvas.height = canvas.offsetHeight
       CX = W * 0.5
       CY = H * 0.5
+      buildGradients()
     }
 
     function init() {
@@ -73,31 +87,16 @@ export default function HeroCanvas() {
       stars = Array.from({ length: STAR_COUNT }, () => new Star(W, H, true))
     }
 
-    // Slight cinematic vignette on canvas itself
-    function drawVignette() {
-      const grd = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.72)
-      grd.addColorStop(0, 'rgba(0,0,0,0)')
-      grd.addColorStop(1, 'rgba(7,0,26,0.72)')
-      ctx.fillStyle = grd
-      ctx.fillRect(0, 0, W, H)
-    }
-
-    // Subtle core glow at warp origin
-    function drawCore() {
-      const grd = ctx.createRadialGradient(CX, CY, 0, CX, CY, 130)
-      grd.addColorStop(0,   'rgba(99,0,255,0.22)')
-      grd.addColorStop(0.4, 'rgba(9,0,255,0.08)')
-      grd.addColorStop(1,   'rgba(0,0,0,0)')
-      ctx.fillStyle = grd
-      ctx.fillRect(0, 0, W, H)
-    }
+    // Set constant context properties once
+    ctx.lineCap = 'round'
 
     function loop() {
       // Persistent trail — semi-transparent fill creates the streak effect
       ctx.fillStyle = 'rgba(7,0,26,0.28)'
       ctx.fillRect(0, 0, W, H)
 
-      drawCore()
+      ctx.fillStyle = coreGrd
+      ctx.fillRect(0, 0, W, H)
 
       stars.forEach(star => {
         star.update()
@@ -117,35 +116,29 @@ export default function HeroCanvas() {
         const streakLen = Math.hypot(p.x - p.px, p.y - p.py)
 
         if (streakLen > 0.5) {
-          const grad = ctx.createLinearGradient(p.px, p.py, p.x, p.y)
-          grad.addColorStop(0, `rgba(${r},${g},${b},0)`)
-          grad.addColorStop(1, `rgba(${r},${g},${b},${alpha * 0.9})`)
-
-          ctx.strokeStyle = grad
+          // Use globalAlpha + solid color instead of per-star createLinearGradient
+          ctx.globalAlpha = alpha * 0.9
+          ctx.strokeStyle = `rgb(${r},${g},${b})`
           ctx.lineWidth   = p.r
-          ctx.lineCap     = 'round'
-
-          // Glow on fast / near stars
-          if (progress > 0.6) {
-            ctx.shadowBlur  = 6 * progress
-            ctx.shadowColor = `rgba(${r},${g},${b},${alpha * 0.5})`
-          }
 
           ctx.beginPath()
           ctx.moveTo(p.px, p.py)
           ctx.lineTo(p.x, p.y)
           ctx.stroke()
-          ctx.shadowBlur = 0
+          ctx.globalAlpha = 1
         } else {
           // Dot when still far (no streak yet)
-          ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.7})`
+          ctx.globalAlpha = alpha * 0.7
+          ctx.fillStyle = `rgb(${r},${g},${b})`
           ctx.beginPath()
           ctx.arc(p.x, p.y, p.r * 0.5, 0, Math.PI * 2)
           ctx.fill()
+          ctx.globalAlpha = 1
         }
       })
 
-      drawVignette()
+      ctx.fillStyle = vignetteGrd
+      ctx.fillRect(0, 0, W, H)
 
       animId = requestAnimationFrame(loop)
     }

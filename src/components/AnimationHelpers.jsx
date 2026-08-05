@@ -10,6 +10,7 @@ export function FadeUp({ children, delay = 0, className = '' }) {
     <motion.div
       ref={ref}
       className={className}
+      style={{ willChange: 'transform, opacity' }}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -29,6 +30,7 @@ export function FadeIn({ children, delay = 0, from = 'left', className = '' }) {
     <motion.div
       ref={ref}
       className={className}
+      style={{ willChange: 'transform, opacity' }}
       initial={{ opacity: 0, x }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -83,6 +85,7 @@ export function ScaleIn({ children, delay = 0, className = '' }) {
     <motion.div
       ref={ref}
       className={className}
+      style={{ willChange: 'transform, opacity' }}
       initial={{ opacity: 0, scale: 0.85 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.6, delay, ease: [0.34, 1.56, 0.64, 1] }}
