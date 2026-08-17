@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion'
 import { FadeUp, StaggerContainer, StaggerItem } from './AnimationHelpers'
+import screenWyborTrybu from '../assets/Zrzut ekranu 2026-08-17 143837.png'
+import screenPOS from '../assets/Zrzut ekranu 2026-08-17 143857.png'
+import screenDodatki from '../assets/Zrzut ekranu 2026-08-17 143910.png'
+import screenKDS from '../assets/Zrzut ekranu 2026-08-17 143932.png'
 
 const screens = [
-  { label: 'Wybór trybu urządzenia', desc: 'Po zalogowaniu wybierasz tryb: kasa kelnerska (POS), ekran kuchenny (KDS) lub tablica menu TV.', bg: 'bg-indigo-50', accent: 'from-indigo-400 to-indigo-600' },
-  { label: 'Panel zamówień (POS)', desc: 'Przejrzysty podział na kategorie, zdjęcia dań, ceny i szybkie dodawanie do zamówienia.', bg: 'bg-purple-50', accent: 'from-purple-400 to-purple-600' },
-  { label: 'Szczegóły dania i dodatki', desc: 'Kelner wybiera dodatki, wpisuje uwagi klienta i zatwierdza zamówienie jednym kliknięciem.', bg: 'bg-blue-50', accent: 'from-blue-400 to-blue-600' },
-  { label: 'Ekran kuchenny (KDS)', desc: 'Kuchnia widzi aktywne zamówienia z timerem oczekiwania i oznacza gotowość jednym kliknięciem.', bg: 'bg-violet-50', accent: 'from-violet-400 to-violet-600' },
+  { label: 'Wybór trybu urządzenia', desc: 'Po zalogowaniu wybierasz tryb: kasa kelnerska (POS), ekran kuchenny (KDS) lub tablica menu TV.', bg: 'bg-indigo-50', accent: 'from-indigo-400 to-indigo-600', img: screenWyborTrybu },
+  { label: 'Panel zamówień (POS)', desc: 'Przejrzysty podział na kategorie, zdjęcia dań, ceny i szybkie dodawanie do zamówienia.', bg: 'bg-purple-50', accent: 'from-purple-400 to-purple-600', img: screenPOS },
+  { label: 'Szczegóły dania i dodatki', desc: 'Kelner wybiera dodatki, wpisuje uwagi klienta i zatwierdza zamówienie jednym kliknięciem.', bg: 'bg-blue-50', accent: 'from-blue-400 to-blue-600', img: screenDodatki },
+  { label: 'Ekran kuchenny (KDS)', desc: 'Kuchnia widzi aktywne zamówienia z timerem oczekiwania i oznacza gotowość jednym kliknięciem.', bg: 'bg-violet-50', accent: 'from-violet-400 to-violet-600', img: screenKDS },
 ]
 
 export default function AppScreenshots() {
@@ -26,23 +30,27 @@ export default function AppScreenshots() {
                 transition={{ type: 'spring', stiffness: 300 }}
                 className={`${s.bg} rounded-2xl p-8 h-full`}
               >
-                <div className="w-full h-48 rounded-xl bg-white/60 border border-white/80 mb-5 flex items-center justify-center overflow-hidden relative">
+                <div className="w-full h-80 rounded-xl bg-white/60 border border-white/80 mb-5 flex items-center justify-center overflow-hidden relative">
                   <motion.div
                     className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-0`}
                     whileHover={{ opacity: 0.06 }}
                   />
-                  <div className="text-center">
-                    <motion.div
-                      className={`w-12 h-12 rounded-full bg-gradient-to-br ${s.accent} mx-auto mb-2 flex items-center justify-center`}
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      transition={{ type: 'spring', stiffness: 400 }}
-                    >
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </motion.div>
-                    <span className="text-xs text-gray-400">Podgląd ekranu</span>
-                  </div>
+                  {s.img ? (
+                    <img src={s.img} alt={s.label} className="w-full h-full object-contain" />
+                  ) : (
+                    <div className="text-center">
+                      <motion.div
+                        className={`w-12 h-12 rounded-full bg-gradient-to-br ${s.accent} mx-auto mb-2 flex items-center justify-center`}
+                        whileHover={{ scale: 1.2, rotate: 10 }}
+                        transition={{ type: 'spring', stiffness: 400 }}
+                      >
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </motion.div>
+                      <span className="text-xs text-gray-400">Podgląd ekranu</span>
+                    </div>
+                  )}
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">{s.label}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
