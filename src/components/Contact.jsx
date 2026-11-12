@@ -1,56 +1,48 @@
 import { motion } from 'framer-motion'
-import { FadeUp } from './AnimationHelpers'
+import { FadeUp, SplitHeading } from './AnimationHelpers'
+import { PhoneIcon } from './Icons'
 
 export default function Contact() {
   return (
     <section
       id="kontakt"
       aria-label="Kontakt z DishFlow – system POS dla restauracji"
-      className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #6300FF 0%, #0900FF 100%)' }}
+      className="relative overflow-hidden bg-brand py-24 text-white lg:py-36"
     >
-      <motion.div
-        className="absolute -top-10 -right-10 w-80 h-80 bg-white/10 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute -bottom-10 -left-10 w-60 h-60 bg-white/5 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.3, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-      />
+      {/* Kręgi rozchodzące się jak sygnał dzwoniącego telefonu */}
+      <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-1/2 h-[640px] w-[640px] -translate-y-1/2">
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="absolute inset-0 rounded-full border border-white/40"
+            initial={{ scale: 0.35, opacity: 0 }}
+            animate={{ scale: [0.35, 1.25], opacity: [0.7, 0] }}
+            transition={{ duration: 4.5, delay: i * 1.5, repeat: Infinity, ease: 'easeOut' }}
+          />
+        ))}
+      </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-        <FadeUp>
-          <h2 className="text-4xl sm:text-5xl font-black mb-4">Zainteresowany?</h2>
-          <p className="text-white/80 text-xl mb-10 max-w-xl mx-auto">
-            Zadzwoń do nas — odpowiemy na wszystkie pytania i dobierzemy idealne rozwiązanie dla Twojej restauracji.
-          </p>
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+        <SplitHeading text="Zainteresowany?" className="display text-5xl sm:text-6xl lg:text-7xl" />
+        <FadeUp as="p" delay={0.1} className="mt-6 max-w-xl text-xl leading-relaxed text-white/80">
+          Zadzwoń do nas — odpowiemy na wszystkie pytania i dobierzemy idealne rozwiązanie dla Twojej restauracji.
         </FadeUp>
 
-        <FadeUp delay={0.2}>
-          <motion.a
-            href="tel:+48660957202"
-            whileHover={{ scale: 1.06, boxShadow: '0 30px 60px rgba(0,0,0,0.35)' }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 bg-white text-[#6300FF] font-black text-2xl px-10 py-5 rounded-2xl shadow-2xl"
-          >
-            <motion.svg
-              className="w-7 h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </motion.svg>
-            660&nbsp;957&nbsp;202
-          </motion.a>
-        </FadeUp>
+        <a
+          href="tel:+48660957202"
+          className="group mt-12 inline-flex items-center gap-5 transition-colors duration-300 hover:text-yolk sm:gap-8"
+        >
+          <PhoneIcon className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:-rotate-12 sm:h-16 sm:w-16" />
+          <SplitHeading
+            as="span"
+            delay={0.2}
+            text="660 957 202"
+            className="display block whitespace-nowrap text-[clamp(3rem,12.5vw,10.5rem)]"
+          />
+        </a>
 
-        <FadeUp delay={0.35}>
-          <p className="mt-8 text-white/60 text-sm">Jesteśmy dostępni w godzinach roboczych.</p>
+        <FadeUp as="p" delay={0.3} className="mt-10 text-sm text-white/65">
+          Jesteśmy dostępni w godzinach roboczych.
         </FadeUp>
       </div>
     </section>

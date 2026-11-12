@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion'
-import { FadeUp, FadeIn, ScaleIn } from './AnimationHelpers'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { CountUp, FadeUp, SplitHeading } from './AnimationHelpers'
+import { ArrowIcon } from './Icons'
 
 const included = [
   'System POS i KDS (2 ekrany)',
@@ -19,125 +21,131 @@ const addons = [
   'Aplikacja dla kelnera',
 ]
 
+function Dashes() {
+  return <div className="my-5 border-t border-dashed border-ink/30" aria-hidden="true" />
+}
+
+// Pakiet podstawowy jako paragon wysuwający się z drukarki
+function Receipt() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, amount: 0.2 })
+
+  return (
+    <div ref={ref} className="mx-auto w-full max-w-md">
+      <div
+        aria-hidden="true"
+        className="relative z-10 h-5 rounded-full bg-ink-2 shadow-[inset_0_-7px_10px_rgba(0,0,0,0.65)] ring-1 ring-white/10"
+      />
+      <div className="-mt-2.5 overflow-hidden px-4">
+        <motion.div
+          initial={{ y: '-101%' }}
+          animate={inView ? { y: 0 } : {}}
+          transition={{ duration: 1.7, ease: [0.3, 0.55, 0.2, 1] }}
+          className="receipt bg-[#fbfaf5] px-6 pb-12 pt-10 font-mono text-[13px] text-ink sm:px-8"
+        >
+          <p className="display text-center text-4xl">DishFlow</p>
+          <h3 className="mt-1.5 text-center text-xs uppercase tracking-widest text-ink/60">Pakiet podstawowy</h3>
+
+          <Dashes />
+
+          <ul className="space-y-2.5">
+            {included.map((item) => (
+              <li key={item} className="flex items-baseline gap-2">
+                <span>{item}</span>
+                <span className="min-w-4 flex-1 border-b border-dotted border-ink/35" aria-hidden="true" />
+                <svg
+                  className="h-3.5 w-3.5 shrink-0 translate-y-0.5 text-go-deep"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={3.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12.5l4.5 4.5L19 7.5" />
+                </svg>
+              </li>
+            ))}
+          </ul>
+
+          <Dashes />
+
+          <div className="flex items-end justify-between">
+            <span className="pb-1 text-sm font-bold uppercase">Razem</span>
+            <p className="text-right">
+              <span className="display text-7xl">
+                <CountUp to={89} delay={0.9} />
+              </span>
+              <span className="ml-1.5 text-lg font-bold">zł</span>
+              <span className="block text-xs text-ink/60">/ miesiąc</span>
+            </p>
+          </div>
+
+          <Dashes />
+
+          <p className="text-[11px] leading-relaxed text-ink/60">
+            Ceny nie zawierają kosztów sprzętu (chyba że restauracja posiada już własne zaplecze techniczne).
+          </p>
+
+          <a href="tel:+48660957202" className="btn btn-brand mt-6 w-full font-sans">
+            Zacznij już dziś
+            <ArrowIcon className="arrow h-4 w-4" />
+          </a>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
+
 export default function Pricing() {
   return (
-    <section id="cennik" className="py-24 bg-gray-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-16">
-          <span className="inline-block text-[#6300FF] font-semibold text-sm uppercase tracking-widest mb-3">Cennik</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Rozwiązania i pakiety</h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">Przystępny cennik dopasowany do potrzeb każdej restauracji.</p>
-        </FadeUp>
+    <section id="cennik" className="bg-ink py-24 text-white lg:py-32">
+      <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-6">
+          <FadeUp as="p" className="mb-4 text-sm font-semibold text-yolk">
+            Cennik
+          </FadeUp>
+          <SplitHeading text="Rozwiązania i pakiety" className="display text-5xl sm:text-6xl lg:text-7xl" />
+          <FadeUp as="p" delay={0.1} className="mt-6 max-w-md text-lg leading-relaxed text-white/65">
+            Przystępny cennik dopasowany do potrzeb każdej restauracji.
+          </FadeUp>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
-          {/* Basic plan */}
-          <ScaleIn delay={0.1} className="max-w-md w-full">
-            <motion.div
-              whileHover={{ y: -6, boxShadow: '0 30px 60px rgba(99,0,255,0.2)' }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              className="relative bg-white rounded-3xl shadow-xl border-2 border-[#6300FF] p-8"
-            >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-[#6300FF] to-[#0900FF] text-white text-xs font-bold px-4 py-1.5 rounded-full">
-                  PAKIET PODSTAWOWY
-                </span>
-              </div>
-
-              <div className="flex items-end gap-2 mt-4 mb-2">
-                <motion.span
-                  className="text-6xl font-black text-gray-900"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                >
-                  89
-                </motion.span>
-                <div className="pb-2">
-                  <span className="text-2xl font-bold text-gray-500">zł</span>
-                  <div className="text-gray-400 text-sm">/miesiąc</div>
-                </div>
-              </div>
-              <p className="text-gray-500 text-sm mb-6">
-                Ceny nie zawierają kosztów sprzętu (chyba że restauracja posiada już własne zaplecze techniczne).
-              </p>
-
-              <ul className="space-y-3 mb-8">
-                {included.map((item, i) => (
-                  <motion.li
-                    key={item}
-                    className="flex items-center gap-3 text-sm text-gray-700"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + i * 0.06 }}
-                  >
-                    <svg className="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                    {item}
-                  </motion.li>
-                ))}
-              </ul>
-
-              <motion.a
-                href="tel:+48660957202"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="block text-center bg-gradient-to-r from-[#6300FF] to-[#0900FF] text-white font-bold py-3.5 rounded-xl"
-              >
-                Zacznij już dziś
-              </motion.a>
-            </motion.div>
-          </ScaleIn>
-
-          {/* Add-ons */}
-          <ScaleIn delay={0.2} className="max-w-md w-full">
-            <motion.div
-              whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8"
-            >
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Dodatki na żądanie</h3>
-              <p className="text-gray-500 text-sm mb-6">
-                Dokup pojedyncze funkcje spoza pakietu. W celu konfiguracji i kosztów skontaktuj się z&nbsp;nami.
-              </p>
-
-              <ul className="space-y-3 mb-8">
-                {addons.map((item, i) => (
-                  <motion.li
-                    key={item}
-                    className="flex items-center gap-3 text-sm text-gray-700"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + i * 0.08 }}
-                  >
-                    <svg className="w-5 h-5 text-[#6300FF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    {item}
-                  </motion.li>
-                ))}
-              </ul>
-
-              <motion.a
-                href="tel:+48660957202"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="block text-center border-2 border-[#6300FF] text-[#6300FF] font-bold py-3.5 rounded-xl hover:bg-[#6300FF]/5 transition-colors"
-              >
-                Zapytaj o wycenę
-              </motion.a>
-            </motion.div>
-          </ScaleIn>
+          <FadeUp delay={0.15} className="mt-14 border-t border-white/15 pt-9">
+            <h3 className="display text-3xl">Dodatki na żądanie</h3>
+            <p className="mt-3 max-w-md leading-relaxed text-white/65">
+              Dokup pojedyncze funkcje spoza pakietu. W celu konfiguracji i kosztów skontaktuj się z&nbsp;nami.
+            </p>
+            <ul className="mt-7 max-w-md divide-y divide-white/10 border-y border-white/10">
+              {addons.map((item) => (
+                <li key={item} className="flex items-center gap-4 py-3.5">
+                  <span className="font-mono text-lg font-bold leading-none text-yolk" aria-hidden="true">
+                    +
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="tel:+48660957202" className="btn btn-outline-light mt-8">
+              Zapytaj o wycenę
+              <ArrowIcon className="arrow h-4 w-4" />
+            </a>
+            <p className="mt-8 max-w-md text-sm text-white/45">
+              * Wymagania sprzętowe dostępne po kontakcie z naszym przedstawicielem.
+            </p>
+          </FadeUp>
         </div>
 
-        <FadeUp delay={0.3}>
-          <p className="text-center text-gray-400 text-sm mt-8">
-            * Wymagania sprzętowe dostępne po kontakcie z naszym przedstawicielem.
-          </p>
-        </FadeUp>
+        <motion.div
+          className="lg:col-span-5 lg:col-start-8"
+          initial={{ rotate: 0 }}
+          whileInView={{ rotate: 1.5 }}
+          whileHover={{ rotate: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+        >
+          <Receipt />
+        </motion.div>
       </div>
     </section>
   )

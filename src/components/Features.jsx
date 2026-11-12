@@ -1,55 +1,41 @@
-import { motion } from 'framer-motion'
-import { FadeUp, StaggerContainer, StaggerItem } from './AnimationHelpers'
+import { StaggerContainer, StaggerItem } from './AnimationHelpers'
+import { DrawIcon } from './Icons'
+import SectionHead from './SectionHead'
 
 const features = [
-  { icon: '💸', title: 'Konkurencyjne ceny', desc: 'Pakiet podstawowy od 89 zł/miesiąc — wielokrotnie taniej niż zachodnie systemy POS.' },
-  { icon: '📈', title: 'Intensywny rozwój', desc: 'Regularnie dodajemy nowe funkcje i jesteśmy otwarci na Twoje sugestie.' },
-  { icon: '💻', title: 'Działa na Twoim sprzęcie', desc: 'System dostosowujemy do istniejącego zaplecza technologicznego restauracji.' },
-  { icon: '👥', title: 'Lokalna inicjatywa', desc: 'Polskie oprogramowanie, polskie wsparcie — rozumiemy specyfikę krajowego rynku.' },
-  { icon: '📞', title: 'Szybki kontakt', desc: 'Jeden numer telefonu dzieli Cię od rozwiązania każdego problemu.' },
-  { icon: '🚀', title: 'Skalowalność', desc: 'Od małego bistro po sieć restauracji — system rośnie razem z Twoim biznesem.' },
+  { icon: 'tag', title: 'Konkurencyjne ceny', desc: 'Pakiet podstawowy od 89 zł/miesiąc — wielokrotnie taniej niż zachodnie systemy POS.' },
+  { icon: 'trend', title: 'Intensywny rozwój', desc: 'Regularnie dodajemy nowe funkcje i jesteśmy otwarci na Twoje sugestie.' },
+  { icon: 'monitor', title: 'Działa na Twoim sprzęcie', desc: 'System dostosowujemy do istniejącego zaplecza technologicznego restauracji.' },
+  { icon: 'pin', title: 'Lokalna inicjatywa', desc: 'Polskie oprogramowanie, polskie wsparcie — rozumiemy specyfikę krajowego rynku.' },
+  { icon: 'phone', title: 'Szybki kontakt', desc: 'Jeden numer telefonu dzieli Cię od rozwiązania każdego problemu.' },
+  { icon: 'layers', title: 'Skalowalność', desc: 'Od małego bistro po sieć restauracji — system rośnie razem z Twoim biznesem.' },
 ]
+
+function trackPointer(e) {
+  const rect = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+  e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`)
+}
 
 export default function Features() {
   return (
-    <section id="funkcje" className="py-24 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-16">
-          <span className="inline-block text-[#6300FF] font-semibold text-sm uppercase tracking-widest mb-3">
-            Dlaczego DishFlow?
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Co nas wyróżnia</h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            Nowoczesny system POS stworzony przez Polaków, dla polskich restauracji.
-          </p>
-        </FadeUp>
+    <section id="funkcje" className="bg-paper py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHead label="Dlaczego DishFlow?" title="Co nas wyróżnia">
+          <p>Nowoczesny system POS stworzony przez Polaków, dla polskich restauracji.</p>
+        </SectionHead>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid border-l border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
-            <StaggerItem key={f.title}>
-              <article>
-              <motion.div
-                whileHover={{
-                  scale: 1.03,
-                  background: 'linear-gradient(135deg, #6300FF, #0900FF)',
-                  color: '#fff',
-                }}
-                className="group bg-gray-50 rounded-2xl p-7 h-full cursor-default transition-colors duration-300"
-              >
-                <motion.div
-                  className="text-4xl mb-4"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.4 } }}
-                >
-                  {f.icon}
-                </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-300">
-                  {f.title}
-                </h3>
-                <p className="text-gray-500 group-hover:text-white/80 text-sm leading-relaxed transition-colors duration-300">
-                  {f.desc}
-                </p>
-              </motion.div>
-              </article>
+            <StaggerItem
+              as="article"
+              key={f.title}
+              onMouseMove={trackPointer}
+              className="spot border-b border-r border-ink/15 p-7 lg:p-9"
+            >
+              <DrawIcon name={f.icon} className="relative mb-12 h-9 w-9 text-brand" />
+              <h3 className="display relative mb-3 text-3xl">{f.title}</h3>
+              <p className="relative leading-relaxed text-ink/65">{f.desc}</p>
             </StaggerItem>
           ))}
         </StaggerContainer>

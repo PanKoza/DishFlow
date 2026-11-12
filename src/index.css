@@ -1,3 +1,163 @@
 @import "tailwindcss";
 
-* { scroll-behavior: smooth; font-family: 'Sora', system-ui, sans-serif; }
+@theme {
+  --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* Kolory wzięte z samej aplikacji: fiolet marki, żółty timer KDS, zielony „wydaj”. */
+  --color-ink: #0f0b1a;
+  --color-ink-2: #1c1730;
+  --color-paper: #f4f2f9;
+  --color-brand: #6300ff;
+  --color-brand-soft: #e7defe;
+  --color-yolk: #ffd23f;
+  --color-go: #3fa659;
+  --color-go-deep: #1d7d38;
+
+  --animate-marquee: marquee 45s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Nagłówki: Archivo w wąskiej odmianie, jak na bonach kuchennych. */
+@utility display {
+  font-family: var(--font-sans);
+  font-stretch: 76%;
+  font-weight: 800;
+  letter-spacing: -0.012em;
+  line-height: 0.96;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-yolk);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border-radius: 0.5rem;
+    padding: 0.95rem 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s,
+      transform 0.15s;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn .arrow {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-yolk {
+    background: var(--color-yolk);
+    color: var(--color-ink);
+  }
+  .btn-yolk:hover {
+    background: #fff;
+  }
+
+  .btn-brand {
+    background: var(--color-brand);
+    color: #fff;
+  }
+  .btn-brand:hover {
+    background: var(--color-ink);
+  }
+
+  .btn-outline-light {
+    border: 1px solid rgb(255 255 255 / 0.3);
+    color: #fff;
+  }
+  .btn-outline-light:hover {
+    border-color: #fff;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  /* Komórka z poświatą podążającą za kursorem (--mx / --my ustawia JS). */
+  .spot {
+    position: relative;
+  }
+  .spot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      340px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--color-brand) 14%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+  .spot:hover::before {
+    opacity: 1;
+  }
+
+  /* Ząbkowana dolna krawędź paragonu. */
+  .receipt {
+    --tooth: 14px;
+    -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth) 100%;
+    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth) 100%;
+  }
+
+  /* Pasek postępu aktywnej zakładki w podglądzie aplikacji. */
+  .tab-progress {
+    transform-origin: left;
+    animation: tab-fill 6s linear forwards;
+  }
+  .viewer:hover .tab-progress,
+  .viewer:focus-within .tab-progress {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tab-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-ping,
+  .tab-progress {
+    animation: none;
+  }
+}

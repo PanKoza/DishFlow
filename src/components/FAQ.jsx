@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FadeUp, StaggerContainer, StaggerItem } from './AnimationHelpers'
+import { AnimatePresence, motion } from 'framer-motion'
+import { FadeUp, SplitHeading, StaggerContainer, StaggerItem } from './AnimationHelpers'
+import { EASE } from './ease'
 
 const faqs = [
   { q: 'Jaki jest najtańszy system POS dla restauracji w Polsce?', a: 'DishFlow oferuje jeden z najtańszych pakietów POS na polskim rynku — 89 zł netto miesięcznie za pełen zestaw: kasa kelnerska (POS), ekran kuchenny (KDS) i tablica menu TV. Większość zagranicznych systemów POS kosztuje 300–800 zł miesięcznie za porównywalną funkcjonalność.' },
@@ -13,69 +14,86 @@ const faqs = [
   { q: 'Jak szybko mogę uruchomić system POS DishFlow?', a: 'System konfigurowany jest indywidualnie. Zadzwoń na numer 660 957 202, a nasz zespół przeprowadzi Cię przez cały proces wdrożenia.' },
 ]
 
-function FAQItem({ item, index }) {
+function FAQItem({ item }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <StaggerItem>
-      <motion.div
-        className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
-        whileHover={{ boxShadow: '0 8px 24px rgba(99,0,255,0.08)' }}
-        itemScope
-        itemProp="mainEntity"
-        itemType="https://schema.org/Question"
+    <StaggerItem
+      className="border-b border-ink/15"
+      itemScope
+      itemProp="mainEntity"
+      itemType="https://schema.org/Question"
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="group flex w-full cursor-pointer items-center justify-between gap-6 py-6 text-left"
+        aria-expanded={open}
       >
-        <button
-          onClick={() => setOpen(!open)}
-          className="w-full flex items-center justify-between px-6 py-5 font-semibold text-gray-900 text-left gap-4"
-          aria-expanded={open}
+        <span
+          itemProp="name"
+          className={`text-lg font-semibold transition-colors duration-200 sm:text-xl ${
+            open ? 'text-brand' : 'group-hover:text-brand'
+          }`}
         >
-          <span itemProp="name">{item.q}</span>
-          <motion.div
-            animate={{ rotate: open ? 45 : 0 }}
-            transition={{ duration: 0.25 }}
-            className="shrink-0 w-8 h-8 rounded-full bg-[#6300FF]/10 flex items-center justify-center"
-          >
-            <svg className="w-4 h-4 text-[#6300FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
-            </svg>
-          </motion.div>
-        </button>
+          {item.q}
+        </span>
+        <span className="relative h-4 w-4 shrink-0 text-brand" aria-hidden="true">
+          <span className="absolute left-0 top-1/2 h-0.5 w-full -translate-y-1/2 bg-current" />
+          <motion.span
+            className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-current"
+            animate={{ scaleY: open ? 0 : 1 }}
+            transition={{ duration: 0.3, ease: EASE }}
+          />
+        </span>
+      </button>
 
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.div
-              key="answer"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                <p className="px-6 pb-5 text-gray-500 text-sm leading-relaxed" itemProp="text">{item.a}</p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="answer"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+              <p className="max-w-2xl pb-7 leading-relaxed text-ink/65" itemProp="text">
+                {item.a}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </StaggerItem>
   )
 }
 
 export default function FAQ() {
   return (
-    <section id="faq" aria-label="Najczęściej zadawane pytania o tani system POS" className="py-24 bg-gray-50 overflow-hidden" itemScope itemType="https://schema.org/FAQPage">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-14">
-          <span className="inline-block text-[#6300FF] font-semibold text-sm uppercase tracking-widest mb-3">FAQ</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Często zadawane pytania</h2>
-          <p className="text-gray-500 text-lg">Odpowiedzi na najważniejsze pytania o DishFlow i systemy POS dla restauracji.</p>
-        </FadeUp>
+    <section
+      id="faq"
+      aria-label="Najczęściej zadawane pytania o tani system POS"
+      className="bg-white py-24 lg:py-32"
+      itemScope
+      itemType="https://schema.org/FAQPage"
+    >
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-28">
+            <FadeUp as="p" className="mb-4 text-sm font-semibold text-brand">
+              FAQ
+            </FadeUp>
+            <SplitHeading text="Często zadawane pytania" className="display text-5xl sm:text-6xl" />
+            <FadeUp as="p" delay={0.1} className="mt-6 text-lg leading-relaxed text-ink/65">
+              Odpowiedzi na najważniejsze pytania o DishFlow i systemy POS dla restauracji.
+            </FadeUp>
+          </div>
+        </div>
 
-        <StaggerContainer className="space-y-4">
-          {faqs.map((item, i) => (
-            <FAQItem key={item.q} item={item} index={i} />
+        <StaggerContainer staggerDelay={0.05} className="border-t border-ink/15 lg:col-span-7 lg:col-start-6">
+          {faqs.map((item) => (
+            <FAQItem key={item.q} item={item} />
           ))}
         </StaggerContainer>
       </div>

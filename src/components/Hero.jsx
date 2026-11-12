@@ -1,147 +1,131 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import HeroCanvas from './HeroCanvas'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import KdsDemo from './KdsDemo'
+import { SplitHeading } from './AnimationHelpers'
+import { EASE } from './ease'
+import { ArrowIcon, PhoneIcon } from './Icons'
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-}
+const facts = [
+  { value: '89 zł', label: 'Cena miesięczna' },
+  { value: 'POS + KDS', label: 'W jednym pakiecie' },
+  { value: '24/7', label: 'Kopia zapasowa' },
+]
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+const tape = [
+  'System POS',
+  'Ekran kuchenny KDS',
+  'TV menu',
+  'System numerków',
+  'Analizy',
+  'Pracownicy i role',
+  'Zarządzanie menu',
+  'Kopia zapasowa',
+]
+
+function rise(delay) {
+  return {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay, ease: EASE },
+  }
 }
 
 export default function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const demoY = useTransform(scrollYProgress, [0, 1], [0, -70])
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 140])
 
   return (
     <section
       ref={ref}
       id="o-nas"
       aria-label="DishFlow – Tani System POS dla Restauracji"
-      className="relative flex items-center justify-center overflow-hidden pt-16 pb-28"
-      style={{ minHeight: '100svh', background: '#07001A' }}
+      className="relative overflow-hidden bg-ink text-white"
     >
-      {/* Aurora canvas — the one WOW animation */}
-      <HeroCanvas />
-
-      {/* Vignette — darkens top so text is readable */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[1]"
-        style={{
-          background: 'linear-gradient(180deg, rgba(7,0,26,0.75) 0%, transparent 35%, transparent 65%, rgba(7,0,26,0.6) 100%)',
-        }}
+      <motion.div
+        aria-hidden="true"
+        style={{ y: glowY }}
+        className="pointer-events-none absolute -right-48 top-0 h-[760px] w-[760px] rounded-full bg-[radial-gradient(closest-side,rgba(99,0,255,0.55),transparent)]"
       />
 
-      {/* Content */}
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white py-16"
-        style={{ y, opacity }}
-      >
-        <motion.div variants={containerVariants} initial="hidden" animate="visible">
-
-          {/* Badge */}
-          <motion.div variants={itemVariants}>
-            <div className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium mb-8 text-white">
-              <motion.span
-                className="w-2 h-2 bg-[#33FF77] rounded-full"
-                animate={{ scale: [1, 1.6, 1], opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              Polska lokalna inicjatywa · Aktywny rozwój
-            </div>
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mb-6"
-            style={{ textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}
-          >
-            <span className="text-white">Tani System&nbsp;</span>
-            <span className="text-white">
-              POS
+      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 pb-20 pt-32 sm:px-8 lg:min-h-[calc(100svh-3.5rem)] lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-28">
+        <div className="lg:col-span-6">
+          <motion.p {...rise(0)} className="mb-6 flex items-center gap-2.5 text-sm font-medium text-white/70">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-go opacity-70" />
+              <span className="relative h-2 w-2 rounded-full bg-go" />
             </span>
-            <br />
-            <span className="text-white/90">dla Twojej Restauracji</span>
-          </motion.h1>
-
-          {/* Subheading */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg sm:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed font-[Inter,sans-serif]"
-            style={{ textShadow: '0 1px 12px rgba(0,0,0,0.9)', opacity: 0.85 }}
-          >
-            DishFlow to nowoczesny system zarządzania zamówieniami POS&nbsp;+&nbsp;KDS,
-            który pomaga opanować ruch w&nbsp;restauracji — nawet podczas największego szczytu.
+            Polska lokalna inicjatywa · Aktywny rozwój
           </motion.p>
 
-          {/* Price pill */}
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(99,0,255,0.6)' }}
-                className="inline-block border border-white/30 bg-black/50 backdrop-blur text-white font-black text-3xl px-8 py-3 rounded-2xl shadow-2xl mb-10 cursor-default"
-            style={{ boxShadow: '0 0 30px rgba(99,0,255,0.4), inset 0 1px 0 rgba(255,255,255,0.15)' }}
-          >
-            od 89&nbsp;zł / miesiąc
+          <SplitHeading
+            as="h1"
+            immediate
+            delay={0.15}
+            text="Tani system POS dla Twojej restauracji"
+            accent={['POS']}
+            accentClass="text-yolk"
+            className="display text-[clamp(2.9rem,12vw,5rem)] lg:text-[clamp(3.5rem,6.2vw,5.75rem)]"
+          />
+
+          <motion.p {...rise(0.55)} className="mt-7 max-w-xl text-lg leading-relaxed text-white/70">
+            DishFlow to nowoczesny system zarządzania zamówieniami POS&nbsp;+&nbsp;KDS, który pomaga opanować ruch
+            w&nbsp;restauracji — nawet podczas największego szczytu.
+          </motion.p>
+
+          <motion.div {...rise(0.7)} className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="#cennik" className="btn btn-yolk">
+              Zobacz pakiety od 89&nbsp;zł
+              <ArrowIcon className="arrow h-4 w-4" />
+            </a>
+            <a href="tel:+48660957202" className="btn btn-outline-light">
+              <PhoneIcon className="h-4 w-4" />
+              660 957 202
+            </a>
           </motion.div>
 
-          {/* CTA buttons */}
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.a
-              href="#cennik"
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(99,0,255,0.7)' }}
-              whileTap={{ scale: 0.97 }}
-              className="font-bold px-8 py-4 rounded-full text-lg text-white"
-              style={{ background: 'linear-gradient(135deg, #6300FF, #0900FF)' }}
-            >
-              Zobacz pakiety
-            </motion.a>
-            <motion.a
-              href="tel:+48660957202"
-              whileHover={{ scale: 1.05, borderColor: '#6300FF', boxShadow: '0 0 20px rgba(99,0,255,0.3)' }}
-              whileTap={{ scale: 0.97 }}
-              className="border-2 border-white/30 text-white/80 font-bold px-8 py-4 rounded-full text-lg backdrop-blur-sm transition-all"
-            >
-              📞 660 957 202
-            </motion.a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
-          >
-            {[
-              { value: '89 zł', label: 'Cena miesięczna' },
-              { value: 'POS + KDS', label: 'W jednym pakiecie' },
-              { value: '24/7', label: 'Kopia zapasowa' },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                className="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + i * 0.15, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                whileHover={{ borderColor: 'rgba(99,0,255,0.5)', backgroundColor: 'rgba(99,0,255,0.1)' }}
+          <motion.dl {...rise(0.85)} className="mt-14 grid max-w-xl grid-cols-3 border-t border-white/15">
+            {facts.map((f) => (
+              <div
+                key={f.label}
+                className="flex flex-col-reverse border-white/15 pt-5 [&:not(:first-child)]:border-l [&:not(:first-child)]:pl-3 sm:[&:not(:first-child)]:pl-4"
               >
-                <div className="text-3xl font-black mb-1 text-white">{s.value}</div>
-                <div className="text-white/80 text-sm font-[Inter,sans-serif]">{s.label}</div>
-              </motion.div>
+                <dt className="mt-1.5 text-xs text-white/60 sm:text-sm">{f.label}</dt>
+                <dd className="display whitespace-nowrap text-[1.3rem] sm:text-4xl">{f.value}</dd>
+              </div>
             ))}
+          </motion.dl>
+        </div>
+
+        <motion.div style={{ y: demoY }} className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.45, ease: EASE }}
+          >
+            <KdsDemo />
+            <p className="mx-auto mt-6 max-w-xl text-sm text-white/50">
+              Kelner nabija zamówienie, kuchnia widzi je od razu, a klient dostaje numerek.
+            </p>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 inset-x-0 z-10">
-        <svg viewBox="0 0 1440 80" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" />
-        </svg>
+      {/* Taśma z zawartością pakietu */}
+      <div className="relative overflow-hidden border-t border-white/10 py-[1.125rem]" aria-hidden="true">
+        <div className="flex w-max animate-marquee">
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex shrink-0 items-center">
+              {[...tape, ...tape].map((item, i) => (
+                <li key={i} className="flex items-center gap-7 pr-7 font-mono text-sm uppercase text-white/60">
+                  {item}
+                  <span className="h-1.5 w-1.5 bg-yolk" />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
     </section>
   )

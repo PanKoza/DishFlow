@@ -1,68 +1,106 @@
-import { motion } from 'framer-motion'
-import { FadeUp, StaggerContainer, StaggerItem } from './AnimationHelpers'
+import { useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { FadeUp } from './AnimationHelpers'
+import SectionHead from './SectionHead'
 import screenWyborTrybu from '../assets/Zrzut ekranu 2026-08-17 143837.png'
 import screenPOS from '../assets/Zrzut ekranu 2026-08-17 143857.png'
 import screenDodatki from '../assets/Zrzut ekranu 2026-08-17 143910.png'
 import screenKDS from '../assets/Zrzut ekranu 2026-08-17 143932.png'
 
 const screens = [
-  { label: 'Wybór trybu urządzenia', desc: 'Po zalogowaniu wybierasz tryb: kasa kelnerska (POS), ekran kuchenny (KDS) lub tablica menu TV.', bg: 'bg-indigo-50', accent: 'from-indigo-400 to-indigo-600', img: screenWyborTrybu },
-  { label: 'Panel zamówień (POS)', desc: 'Przejrzysty podział na kategorie, zdjęcia dań, ceny i szybkie dodawanie do zamówienia.', bg: 'bg-purple-50', accent: 'from-purple-400 to-purple-600', img: screenPOS },
-  { label: 'Szczegóły dania i dodatki', desc: 'Kelner wybiera dodatki, wpisuje uwagi klienta i zatwierdza zamówienie jednym kliknięciem.', bg: 'bg-blue-50', accent: 'from-blue-400 to-blue-600', img: screenDodatki },
-  { label: 'Ekran kuchenny (KDS)', desc: 'Kuchnia widzi aktywne zamówienia z timerem oczekiwania i oznacza gotowość jednym kliknięciem.', bg: 'bg-violet-50', accent: 'from-violet-400 to-violet-600', img: screenKDS },
+  { label: 'Wybór trybu urządzenia', desc: 'Po zalogowaniu wybierasz tryb: kasa kelnerska (POS), ekran kuchenny (KDS) lub tablica menu TV.', img: screenWyborTrybu },
+  { label: 'Panel zamówień (POS)', desc: 'Przejrzysty podział na kategorie, zdjęcia dań, ceny i szybkie dodawanie do zamówienia.', img: screenPOS },
+  { label: 'Szczegóły dania i dodatki', desc: 'Kelner wybiera dodatki, wpisuje uwagi klienta i zatwierdza zamówienie jednym kliknięciem.', img: screenDodatki },
+  { label: 'Ekran kuchenny (KDS)', desc: 'Kuchnia widzi aktywne zamówienia z timerem oczekiwania i oznacza gotowość jednym kliknięciem.', img: screenKDS },
 ]
 
 export default function AppScreenshots() {
+  const [active, setActive] = useState(0)
+  // Ekrany przełączają się same, dopóki ktoś nie wybierze zakładki ręcznie
+  const [auto, setAuto] = useState(true)
+  const viewerRef = useRef(null)
+  const inView = useInView(viewerRef, { amount: 0.4 })
+
   return (
-    <section id="aplikacja" className="py-24 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-16">
-          <span className="inline-block text-[#6300FF] font-semibold text-sm uppercase tracking-widest mb-3">Interfejs</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Wygląd aplikacji</h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">Przejrzysty, intuicyjny interfejs — zero zbędnych komplikacji.</p>
-        </FadeUp>
+    <section id="aplikacja" className="bg-white py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHead label="Interfejs" title="Wygląd aplikacji">
+          <p>Przejrzysty, intuicyjny interfejs — zero zbędnych komplikacji.</p>
+        </SectionHead>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {screens.map((s) => (
-            <StaggerItem key={s.label}>
-              <motion.div
-                whileHover={{ y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                className={`${s.bg} rounded-2xl p-8 h-full`}
-              >
-                <div className="w-full h-80 rounded-xl bg-white/60 border border-white/80 mb-5 flex items-center justify-center overflow-hidden relative">
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-0`}
-                    whileHover={{ opacity: 0.06 }}
-                  />
-                  {s.img ? (
-                    <img src={s.img} alt={s.label} className="w-full h-full object-contain" />
-                  ) : (
-                    <div className="text-center">
-                      <motion.div
-                        className={`w-12 h-12 rounded-full bg-gradient-to-br ${s.accent} mx-auto mb-2 flex items-center justify-center`}
-                        whileHover={{ scale: 1.2, rotate: 10 }}
-                        transition={{ type: 'spring', stiffness: 400 }}
-                      >
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                      </motion.div>
-                      <span className="text-xs text-gray-400">Podgląd ekranu</span>
-                    </div>
-                  )}
+        <FadeUp>
+          <div ref={viewerRef} className="viewer grid gap-8 lg:grid-cols-12 lg:gap-10">
+            <div role="tablist" aria-label="Ekrany aplikacji" className="order-2 border-t border-ink/15 lg:order-1 lg:col-span-4">
+              {screens.map((s, i) => {
+                const selected = i === active
+                return (
+                  <button
+                    key={s.label}
+                    id={`screen-tab-${i}`}
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls="screen-panel"
+                    onClick={() => {
+                      setActive(i)
+                      setAuto(false)
+                    }}
+                    className="group relative block w-full cursor-pointer border-b border-ink/15 py-5 text-left"
+                  >
+                    <span
+                      className={`display block text-2xl transition-colors duration-300 sm:text-3xl ${
+                        selected ? 'text-ink' : 'text-ink/35 group-hover:text-ink/70'
+                      }`}
+                    >
+                      {s.label}
+                    </span>
+                    <span
+                      className={`grid transition-[grid-template-rows,opacity] duration-500 ${
+                        selected ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <span className="overflow-hidden">
+                        <span className="block pt-2.5 leading-relaxed text-ink/65">{s.desc}</span>
+                      </span>
+                    </span>
+                    {selected && (
+                      <span
+                        key={auto && inView ? 'running' : 'idle'}
+                        className={`absolute -bottom-px left-0 h-0.5 w-full bg-brand ${auto && inView ? 'tab-progress' : ''}`}
+                        onAnimationEnd={() => setActive((i + 1) % screens.length)}
+                      />
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div
+              id="screen-panel"
+              role="tabpanel"
+              aria-labelledby={`screen-tab-${active}`}
+              className="order-1 lg:order-2 lg:col-span-8"
+            >
+              <div className="rounded-2xl bg-ink p-2.5 sm:p-4">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-black">
+                  <AnimatePresence initial={false}>
+                    <motion.img
+                      key={active}
+                      src={screens[active].img}
+                      alt={screens[active].label}
+                      className="absolute inset-0 h-full w-full object-contain"
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  </AnimatePresence>
                 </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-2">{s.label}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-
-        <FadeUp delay={0.3}>
-          <p className="text-center text-gray-400 text-sm mt-8">
-            Wygląd aplikacji może się zmieniać — jesteśmy w ciągłym rozwoju.
-          </p>
+              </div>
+              <p className="mt-4 text-sm text-ink/50">
+                Wygląd aplikacji może się zmieniać — jesteśmy w ciągłym rozwoju.
+              </p>
+            </div>
+          </div>
         </FadeUp>
       </div>
     </section>
